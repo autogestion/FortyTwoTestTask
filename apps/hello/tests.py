@@ -7,7 +7,7 @@ from .models import Contact
 
 class HttpTest(TestCase):
     def test_home(self):
-        myself = Contact.objects.get(id=1)
+        myself = Contact.objects.all()[0]
         response = self.client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, myself.first_name)

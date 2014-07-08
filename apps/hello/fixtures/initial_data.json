@@ -1,0 +1,1 @@
+[{"pk": 1, "model": "hello.contact", "fields": {"bio": "Hello", "first_name": "Jon", "last_name": "Smith", "other_contacts": "phone: 555", "birthday": "1961-07-26", "skype": "sk", "jabber": "jb", "email": "j@s.com"}}]
