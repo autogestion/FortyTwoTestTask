@@ -1,12 +1,16 @@
 
 from django.core.urlresolvers import reverse
 from django.test import TestCase
-from django.test.client import Client
-from django.test.client import RequestFactory
+from django.test.client import Client, RequestFactory
+from django.test.client import
+from django.conf import settings
+from django.template import RequestContext
+
 
 from .models import Contact, HttpRequestList
 from .middleware import SaveAllHttpRequests
 from .views import requestList
+from .context_processors import load_settings
 
 
 class ContactTest(TestCase):
@@ -30,3 +34,12 @@ class MiddlewareTest(TestCase):
          count = HttpRequestList.objects.all().count()
          md.process_request(request)
          self.assertNotEqual(HttpRequestList.objects.all().count(), count)
+
+
+class TestContext(TestCase):
+    def test_load_settings(self):
+        factory = RequestFactory()
+        request = factory.get('/')
+        context = RequestContext(request, None, [load_settings])
+        self.assertIn('settings', context)
+        self.assertEqual(context['settings'], settings)
