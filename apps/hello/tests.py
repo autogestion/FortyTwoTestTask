@@ -74,3 +74,16 @@ class TestContext(TestCase):
         context = RequestContext(request, None, [load_settings])
         self.assertIn('settings', context)
         self.assertEqual(context['settings'], settings)
+
+
+class WidgetsTest(TestCase):
+    def test_datepicker(self):
+        JS_SCRIPTS = [
+            'jquery-ui-1.11.0.custom.min.js',
+            'jquery-1.11.1.min.js'
+        ]
+        self.client.login(username='admin', password='admin')
+        response = self.client.post(reverse('edit_page'))
+        self.assertContains(response, 'id_birthday')
+        for script in JS_SCRIPTS:
+            self.assertContains(response, script)
