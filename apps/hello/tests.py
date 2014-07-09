@@ -2,7 +2,6 @@
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.client import Client, RequestFactory
-from django.test.client import
 from django.conf import settings
 from django.template import RequestContext
 
