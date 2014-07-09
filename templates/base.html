@@ -23,18 +23,18 @@
     <body id="{% block body_id %}{% endblock %}" class="{% block body_class %}{% endblock %}">
         <div class="wrapper">
             {% block body %}
-
+            
             <div class="header">
                 {% block header %}
                     <h2>42 Coffee Cups Test Assignment</h2>
                     <div class="menu">{% block header_menu %}{% endblock header_menu %}</div>
                 {% endblock header %}
             </div>
-
+            
             <div class="content">
                 {% block content %}{% endblock content %}
             </div>
-
+            
             <div class="footer">
             {% block footer %}
                 <hr>
@@ -43,7 +43,7 @@
                 {% endblock footer_menu %}
             {% endblock footer %}
             </div>
-
+            
             {% endblock body %}
         </div>
     </body>

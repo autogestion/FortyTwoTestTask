@@ -9,4 +9,9 @@ body            { min-width: 800px; color: #444; }
 .footer         { clear: both; width: 100%; margin-bottom: 20px; }
 ul              { list-style-type: none; }
 .errorlist      { color: #f00; }
-.form_action    {clear: both; padding: 0.5em 2em;}
+#loading 		{ position: fixed; bottom: 5px; left: 50%; }
+.form-field 	{ text-align: left; }
+.form-field2 	{ text-align: left; }
+.field 			{ }
+.field span 	{ padding-left: 0.6em; }
+.form_action	{ clear: both; padding: 0.5em 2em;}

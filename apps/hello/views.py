@@ -1,9 +1,10 @@
 
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest
 from django.core.urlresolvers import reverse
 from django.contrib.auth.views import logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render
+import json
 
 from .models import Contact, HttpRequestList
 from .forms import info_form
@@ -25,9 +26,23 @@ def edit_page(request):
     info = get_object_or_404(Contact, pk=1)
     form = info_form(request.POST or None, request.FILES or None,
         instance=info)
-    if request.method == 'POST' and form.is_valid():
-        form.save()
-        return HttpResponseRedirect(reverse('home'))
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            if request.is_ajax():
+                return HttpResponse(json.dumps({"success": "saved"}),
+                        content_type="application/json")
+            else:
+                return HttpResponseRedirect(reverse('home'))
+        elif request.is_ajax():
+                errors_dict = {}
+                if form.errors:
+                    for error in form.errors:
+                        e = form.errors[error]
+                        errors_dict[error] = unicode(e)
+                    return HttpResponseBadRequest(json.dumps(errors_dict),
+                                        content_type="application/json")
+
     return render(request, 'hello/edit.html', {'form': form})
 
 
@@ -35,3 +50,10 @@ def edit_page(request):
 def logout_user(request):
     logout(request)
     return HttpResponseRedirect(reverse('home'))
+
+
+
+
+
+
+
