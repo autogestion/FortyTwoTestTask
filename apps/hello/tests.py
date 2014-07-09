@@ -1,7 +1,7 @@
 
 from django.core.urlresolvers import reverse
 from django.test import TestCase
-from django.test.client import Client, RequestFactory
+from django.test.client import RequestFactory
 from django.conf import settings
 from django.template import RequestContext
 
@@ -12,15 +12,47 @@ from .views import requestList
 from .context_processors import load_settings
 
 
-class ContactTest(TestCase):
+
+class HttpTest(TestCase):
+
+    fixtures = ("initial_data")
+
     def test_home(self):
-        myself = Contact.objects.all()[0]
+        myself = Info.objects.all()[0]
         response = self.client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, myself.first_name)
         self.assertContains(response, myself.last_name)
         self.assertContains(response, myself.skype)
 
+    def test_edit_page(self):
+        response = self.client.get(reverse('edit_page'))
+        self.assertRedirects(response, reverse('login')+'?next=/edit/')
+
+        self.client.login(username='admin', password='admin')
+        response = self.client.get(reverse('edit_page'))
+        self.assertEqual(response.status_code, 200)
+        data = {
+            'first_name': "foo",
+            'last_name': "bar",
+            'birthday': '2012-12-12',
+            'bio': 'some bio about me',
+            'email': 'g@g.com',
+            'jabber': 'g@jabber.org.ua',
+            'skype': 'gg',
+            'other_contacts': '333'
+        }
+        response = self.client.post(reverse('edit_page'), data, follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, data['first_name'])
+        self.assertContains(response, data['last_name'])
+        self.assertContains(response, data['email'])
+        response = self.client.get(reverse('home'))
+        self.assertContains(response, 'logout')
+        self.assertContains(response, 'edit')
+        self.client.get(reverse('logout_user'))
+        response = self.client.get(reverse('home'))
+        self.assertContains(response, 'login')
 
 
 class MiddlewareTest(TestCase):
