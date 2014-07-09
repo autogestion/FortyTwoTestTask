@@ -1,24 +1,24 @@
 {% extends "base.html" %}
 
- {% block content %}
-     <table border=1>
-     <tr>
-         <td>Number
-         <td>Date
-         <td>Method
-         <td>Protocol
-         <td>Remote addr
-         <td>Path info
-     {% for request in requests %}
-     <tr>
-         <td>{{ request.id }}
-         <td>{{ request.date }}
-         <td>{{ request.method }}
-         <td>{{ request.protocol }}
-         <td>{{ request.remote_addr }}
-         <td>{{ request.path_info }}
-     {% endfor %}
-     </table>
- +<br>
- +<a href="/">main page</a>
- +{% endblock content %}
+{% block content %}
+    <table border=1>
+    <tr>
+        <td>Number
+        <td>Date
+        <td>Method
+        <td>Protocol
+        <td>Remote addr
+        <td>Path info
+    {% for request in requests %}
+    <tr>
+        <td>{{ request.id }}
+        <td>{{ request.date }}
+        <td>{{ request.method }}
+        <td>{{ request.protocol }}
+        <td>{{ request.remote_addr }}
+        <td>{{ request.path_info }}
+    {% endfor %}
+    </table>
+<br>
+<a href="/">main page</a>
+{% endblock content %}

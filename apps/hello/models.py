@@ -10,10 +10,13 @@ class Contact(models.Model):
     jabber = models.CharField(verbose_name="Jabber", max_length=100)
     skype = models.CharField(verbose_name="Skype", max_length=100)
     other_contacts = models.TextField(verbose_name="Other contacts")
-
+    photo = models.ImageField(upload_to='photos', blank=True, null=True)
 
     def __unicode__(self):
         return "%s %s" % (self.first_name, self.last_name)
+
+
+
 
 
 class HttpRequestList(models.Model):

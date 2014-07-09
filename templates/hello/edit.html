@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+{{ error_msg }}
+<form method="POST" action="" enctype="multipart/form-data">
+{% csrf_token %}
+<div class="first_col">
+    <table>
+        <tr>
+            <td>{{ form.first_name.label }}
+            <td>{{ form.first_name }}
+        <tr>
+            <td colspan=2>{{ form.first_name.errors }}
+        <tr>
+            <td>{{ form.last_name.label }}
+            <td>{{ form.last_name }}
+        <tr>
+            <td colspan=2>{{ form.last_name.errors }}
+        <tr>
+            <td>{{ form.birthday.label }}
+            <td>{{ form.birthday }}
+        <tr>
+            <td colspan=2>{{ form.birthday.errors }}
+    </table>
+    <p>
+      {{ form.photo }}
+      <img id="preview_photo" src="{{ MEDIA_PREFIX }}{{ form.photo.value }}"
+        alt="image preview" width="350" height="500" />
+    </p>
+</div>
+<div class="second_col">
+    <table>
+        <tr>
+            <td>{{ form.email.label }}
+            <td>{{ form.email }}
+        <tr>
+            <td colspan=2>{{ form.email.errors }}
+        <tr>
+            <td>{{ form.jabber.label }}
+            <td>{{ form.jabber }}
+        <tr>
+            <td colspan=2>{{ form.jabber.errors }}
+        <tr>
+            <td>{{ form.skype.label }}
+            <td>{{ form.skype }}
+        <tr>
+            <td colspan=2>{{ form.skype.errors }}
+    </table>
+    <p>
+        {{ form.other_contacts.label }}<br>
+        {{ form.other_contacts }}<br>
+        {{ form.other_contacts.errors }}
+    </p>
+    <p>
+        {{ form.bio.label }}:<br>
+        {{ form.bio }}<br>
+        {{ form.bio.errors }}
+    </p>
+</div>
+<div class="form_action">
+    <input type="submit" value="save" /> <a href="/">Cancel</a>
+</div>
+</form>
+{% endblock content %}

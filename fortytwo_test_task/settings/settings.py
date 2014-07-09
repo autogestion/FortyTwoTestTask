@@ -133,3 +133,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.messages.context_processors.messages",
     "apps.hello.context_processors.load_settings",
 )
+
+
+LOGIN_URL = "/login/"

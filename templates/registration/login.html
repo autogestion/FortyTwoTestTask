@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block header_menu %}
+<a href="/">home page</a>
+{% endblock header_menu %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <h3>You already authenticated</h3>
+{% else %}
+<form action="/login/" method="post">
+    {% csrf_token %}
+<input type="hidden" name="next" value="/" />
+        <table>
+        {{ form.as_table }}
+        </table>
+<input type="submit" value="Log In" />
+</form>
+{% endif %}
+{% endblock content %}

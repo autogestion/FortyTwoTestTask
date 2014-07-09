@@ -1,3 +1,12 @@
-body                { min-width: 800px; color: #555; }
-.person_block       { width: 400px; float: left; margin-right: 20px; }
-.contacts_block     { width: 380xp; float: left; }
+body            { min-width: 800px; color: #444; }
+.first_col      { width: 400px; float: left; }
+.second_col     { width: 380px; float: right; }
+.header         { float: left; width: 100%; }
+.header h2      { float: left; }
+.menu           { float: right; margin: 20px; }
+.wrapper        { float:left; width: 800px; }
+.content        { float: left; margin: 20px 0px 20px 0px; }
+.footer         { clear: both; width: 100%; margin-bottom: 20px; }
+ul              { list-style-type: none; }
+.errorlist      { color: #f00; }
+.form_action    {clear: both; padding: 0.5em 2em;}

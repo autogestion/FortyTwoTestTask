@@ -18,7 +18,7 @@ class HttpTest(TestCase):
     fixtures = ("initial_data")
 
     def test_home(self):
-        myself = Info.objects.all()[0]
+        myself = Contact.objects.all()[0]
         response = self.client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, myself.first_name)
