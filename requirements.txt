@@ -1,3 +1,4 @@
 Django
 south
+django-annoying
 Pillow==2.5.0

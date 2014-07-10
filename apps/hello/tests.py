@@ -130,9 +130,9 @@ class SignalProcessors(TestCase):
         singals = Signal.objects.order_by("-date")[:3]
         singals = list(singals)
         models_singals = [
-            ['Info', 'delete'],
-            ['Info', 'edit'],
-            ['Info', 'create'],
+            ['Contact', 'delete'],
+            ['Contact', 'edit'],
+            ['Contact', 'create'],
         ]
         self.assertEqual(len(singals), 3)
         for index, value in enumerate(models_singals):
