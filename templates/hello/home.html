@@ -1,8 +1,9 @@
 {% extends "base.html" %}
-
+{% load admintag %}
 {% block header_menu %}
   {% if user.is_authenticated %}
     <a href="/edit/">edit</a>
+    {% edit_link user %}
     <a href="/logout/">logout</a>
   {% else %}
     <a href="/login/">login</a>
@@ -11,23 +12,19 @@
 
 {% block content %}
 <div class="first_col">
-    <div class="form-field">
-        <p>{{ user_info.first_name }}</p>
-        <p>{{ user_info.last_name }}</p>
-        <p>{{ user_info.birthday }}</p>
-    </div>
+    <p>{{ user_info.first_name }}</p>
+    <p>{{ user_info.last_name }}</p>
+    <p>{{ user_info.birthday }}</p>
     <p>Photo:
     <img src="{{ MEDIA_PREFIX }}{{ user_info.photo }}" width="350" height="500" alt="it's my photo" />
     </p>
 </div>
 <div class="second_col">
-    <div class="form-field2">
-        <p>Contacts</p>
-        <p>Email: {{ user_info.email }}</p>
-        <p>Jabber: {{ user_info.jabber }}</p>
-        <p>Skype: {{ user_info.skype }}</p>
-    </div>
-        <p>Other contacts:<br>{{ user_info.other_contacts }}</p>
-        <p>Bio<br>{{ user_info.bio }}</p>
+    <p>Contacts</p>
+    <p>Email: {{ user_info.email }}</p>
+    <p>Jabber: {{ user_info.jabber }}</p>
+    <p>Skype: {{ user_info.skype }}</p>
+    <p>Other contacts:<br>{{ user_info.other_contacts }}</p>
+    <p>Bio<br>{{ user_info.bio }}</p>
 </div>
 {% endblock content %}
