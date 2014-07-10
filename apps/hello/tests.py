@@ -139,3 +139,22 @@ class SignalProcessors(TestCase):
             model, signal = value
             self.assertEqual(singals[index].model, model)
             self.assertEqual(singals[index].signal, signal)
+
+
+
+class RequestForm(TestCase):
+    def test_priority_form(self):
+        factory = RequestFactory()
+        request = factory.get(reverse('home'))
+        http_middleware = SaveAllHttpRequests()
+        http_middleware.process_request(request)
+        response = self.client.get(reverse('requestList'),
+                                   {'priority': 1})
+        self.assertContains(response, 1)
+
+        pr = HttpRequestList.objects.get(id=1)
+        pr.priority = 0
+        pr.save()
+        response = self.client.get(reverse('requestList'),
+                                   {'priority': 0})
+        self.assertContains(response, 0)
