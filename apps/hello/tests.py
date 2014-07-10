@@ -5,6 +5,9 @@ from django.test.client import RequestFactory
 from django.conf import settings
 from django.contrib.auth import authenticate
 from django.template import Template, Context, RequestContext
+from django.core.management import get_commands, call_command
+from django.db import models
+from StringIO import StringIO
 
 from .models import Contact, HttpRequestList
 from .middleware import SaveAllHttpRequests
@@ -103,3 +106,16 @@ class AdminTagTest(TestCase):
         self.client.login(username="admin", password="admin")
         response = self.client.get(reverse('home'))
         self.assertContains(response, tag_tpl)
+
+
+
+class CommandTest(TestCase):
+    def test_showmodules(self):
+        self.assertTrue('showmodels' in get_commands())
+        content = StringIO()
+        error = StringIO()
+        call_command('showmodels', stdout=content, stderr=error, error=True)
+        for model in models.get_models():
+            name = str(model).split("'")[1]
+            self.assertIn(name, content.getvalue())
+            self.assertIn(name, error.getvalue())
