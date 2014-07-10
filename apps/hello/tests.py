@@ -9,7 +9,7 @@ from django.core.management import get_commands, call_command
 from django.db import models
 from StringIO import StringIO
 
-from .models import Contact, HttpRequestList
+from .models import Contact, HttpRequestList, Signal
 from .middleware import SaveAllHttpRequests
 from .views import requestList
 from .context_processors import load_settings
@@ -119,3 +119,23 @@ class CommandTest(TestCase):
             name = str(model).split("'")[1]
             self.assertIn(name, content.getvalue())
             self.assertIn(name, error.getvalue())
+
+
+class SignalProcessors(TestCase):
+    def test_signals(self):
+        Contact.objects.create(first_name='Foo', birthday='2012-12-12')
+        info = Contact.objects.latest('id')
+        info.save()
+        info.delete()
+        singals = Signal.objects.order_by("-date")[:3]
+        singals = list(singals)
+        models_singals = [
+            ['Info', 'delete'],
+            ['Info', 'edit'],
+            ['Info', 'create'],
+        ]
+        self.assertEqual(len(singals), 3)
+        for index, value in enumerate(models_singals):
+            model, signal = value
+            self.assertEqual(singals[index].model, model)
+            self.assertEqual(singals[index].signal, signal)
