@@ -3,8 +3,8 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.conf import settings
-from django.template import RequestContext
-
+from django.contrib.auth import authenticate
+from django.template import Template, Context, RequestContext
 
 from .models import Contact, HttpRequestList
 from .middleware import SaveAllHttpRequests
@@ -87,3 +87,19 @@ class WidgetsTest(TestCase):
         self.assertContains(response, 'id_birthday')
         for script in JS_SCRIPTS:
             self.assertContains(response, script)
+
+
+
+class AdminTagTest(TestCase):
+    def test_generate_link(self):
+        tag_tpl = '<a href="/admin/auth/user/1/">(admin)</a>'
+        user = authenticate(username='admin', password='admin')
+        tag = Template('{% load admintag %}{% edit_link user %}') \
+                      .render(Context({'user': user}))
+        self.assertEqual(tag_tpl, tag)
+
+    def test_tag_exist(self):
+        tag_tpl = '<a href="/admin/auth/user/1/">(admin)</a>'
+        self.client.login(username="admin", password="admin")
+        response = self.client.get(reverse('home'))
+        self.assertContains(response, tag_tpl)
