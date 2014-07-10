@@ -26,7 +26,7 @@ class HttpRequestList(models.Model):
     protocol = models.CharField(verbose_name="Protocol", max_length=50)
     remote_addr = models.CharField(verbose_name="Remote addr", max_length=100)
     path_info = models.CharField(verbose_name="Path info", max_length=255)
-
+    priority = models.PositiveIntegerField(verbose_name="priority", default=1)
 
     def __unicode__(self):
         return "%s %s" %(self.date, self.path_info)

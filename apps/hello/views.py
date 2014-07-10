@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404, render
 import json
 
 from .models import Contact, HttpRequestList
-from .forms import info_form
+from .forms import info_form, PriorityForm
 
 
 def home(request):
@@ -17,8 +17,16 @@ def home(request):
 
 
 def requestList(request):
+    form = PriorityForm(request.GET or None)
+    data = HttpRequestList.objects.all()
+    if request.method == 'GET':
+        if form.is_valid():
+            priority = form.cleaned_data.get('priority', 1)
+            data = data.filter(priority=priority)
+
     return render(request, 'hello/requests.html',
-        {'requests': HttpRequestList.objects.order_by('-date')[:10]})
+        {'requests': data[:10], 'form': form})
+
 
 
 @login_required

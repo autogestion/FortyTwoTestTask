@@ -12,19 +12,23 @@
 
 {% block content %}
 <div class="first_col">
-    <p>{{ user_info.first_name }}</p>
-    <p>{{ user_info.last_name }}</p>
-    <p>{{ user_info.birthday }}</p>
+    <div class="form-field">
+        <p>{{ user_info.first_name }}</p>
+        <p>{{ user_info.last_name }}</p>
+        <p>{{ user_info.birthday }}</p>
+    </div>
     <p>Photo:
     <img src="{{ MEDIA_PREFIX }}{{ user_info.photo }}" width="350" height="500" alt="it's my photo" />
     </p>
 </div>
 <div class="second_col">
-    <p>Contacts</p>
-    <p>Email: {{ user_info.email }}</p>
-    <p>Jabber: {{ user_info.jabber }}</p>
-    <p>Skype: {{ user_info.skype }}</p>
-    <p>Other contacts:<br>{{ user_info.other_contacts }}</p>
-    <p>Bio<br>{{ user_info.bio }}</p>
+    <div class="form-field2">
+        <p>Contacts</p>
+        <p>Email: {{ user_info.email }}</p>
+        <p>Jabber: {{ user_info.jabber }}</p>
+        <p>Skype: {{ user_info.skype }}</p>
+    </div>
+        <p>Other contacts:<br>{{ user_info.other_contacts }}</p>
+        <p>Bio<br>{{ user_info.bio }}</p>
 </div>
 {% endblock content %}

@@ -23,3 +23,8 @@ class info_form(ModelForm):
             settings.STATIC_URL + 'js/jquery.form.js',
             settings.STATIC_URL + 'js/edit_detail.js',
         )
+
+
+
+class PriorityForm(forms.Form):
+    priority = forms.ChoiceField(label='Priority', choices=[(1, 1), (0,0)])
